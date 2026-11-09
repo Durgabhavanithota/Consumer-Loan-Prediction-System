@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer Loan Approval System</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f5fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #101936;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            background: #7564ef;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .top-label {
+            color: #c5c9dc;
+            font-size: 13px;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #101936, #302d69, #6255cb);
+            padding: 55px 20px 85px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            color: #d9dcf2;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .main-container {
+            max-width: 950px;
+            margin: -45px auto 50px;
+            padding: 0 18px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 38px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(30, 41, 80, 0.10);
+        }
+
+        .form-heading {
+            margin-bottom: 28px;
+        }
+
+        .form-heading h2 {
+            font-size: 23px;
+            color: #172554;
+            margin-bottom: 8px;
+        }
+
+        .form-heading p {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .section {
+            border: 1px solid #e8eaf3;
+            border-radius: 15px;
+            padding: 24px;
+            margin-bottom: 23px;
+            background: #ffffff;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 23px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: #efedff;
+            font-size: 19px;
+        }
+
+        .section-title h3 {
+            color: #252d50;
+            font-size: 16px;
+        }
+
+        .section-title p {
+            color: #8992a7;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 9px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            height: 46px;
+            padding: 0 13px;
+            border: 1px solid #dce1ec;
+            border-radius: 9px;
+            outline: none;
+            background: #fafbfe;
+            font-family: inherit;
+            font-size: 13px;
+            color: #25304a;
+            transition: 0.25s;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #7564ef;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(117, 100, 239, 0.12);
+        }
+
+        .field input::placeholder {
+            color: #a0a8b8;
+        }
+
+        .hint {
+            font-size: 11px;
+            color: #929bad;
+            margin-top: 7px;
+        }
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .radio-item {
+            background: #f8f9fd;
+            padding: 16px;
+            border: 1px solid #e8eaf2;
+            border-radius: 11px;
+        }
+
+        .radio-item > label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 13px;
+            color: #374151;
+        }
+
+        .radio-options {
+            display: flex;
+            gap: 25px;
+        }
+
+        .radio-options label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #59647a;
+        }
+
+        .radio-options input {
+            accent-color: #6958df;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            padding: 16px;
+            border-radius: 11px;
+            background: linear-gradient(110deg, #6958df, #4737b8);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 7px 18px rgba(105, 88, 223, 0.23);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 23px rgba(105, 88, 223, 0.32);
+        }
+
+        .footer {
+            text-align: center;
+            color: #929bad;
+            font-size: 12px;
+            padding: 0 15px 30px;
+        }
+
+        @media(max-width: 650px) {
+            .topbar {
+                padding: 18px 5%;
+            }
+
+            .top-label {
+                display: none;
+            }
+
+            .hero {
+                padding: 42px 18px 75px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .form-card {
+                padding: 23px 16px;
+            }
+
+            .section {
+                padding: 18px 14px;
+            }
+
+            .form-grid,
+            .radio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-icon">🏦</span>
+            <span>LoanWise</span>
+        </div>
+        <div class="top-label">Smart Loan Prediction System</div>
+    </header>
+
+    <section class="hero">
+        <h1>Consumer Loan Approval Prediction</h1>
+        <p>Enter your personal and financial information to receive<br>
+        an AI-powered loan eligibility prediction.</p>
+    </section>
+
+    <main class="main-container">
+        <div class="form-card">
+
+            <div class="form-heading">
+                <h2>Loan Application Details</h2>
+                <p>Please provide accurate information in all required fields.</p>
+            </div>
+
+            <form action="/predict" method="POST">
+
+                <!-- Personal Information -->
+                <section class="section">
+                    <div class="section-title">
+                        <div class="section-icon">👤</div>
+                        <div>
+                            <h3>Personal Information</h3>
+                            <p>Basic applicant details</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label>Age</label>
+                            <input type="number" name="age"
+                                   placeholder="Enter your age"
+                                   min="18" max="100" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Years of Experience</label>
+                            <input type="number" step="0.1"
+                                   name="years_experience"
+                                   placeholder="Enter work experience"
+                                   min="0" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Family Size</label>
+                            <input type="number" name="family_size"
+                                   placeholder="Enter family size"
+                                   min="1" required>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Financial Information -->
+                <section class="section">
+                    <div class="section-title">
+                        <div class="section-icon">💰</div>
+                        <div>
+                            <h3>Financial Information</h3>
+                            <p>Income and financial details</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label>Annual Income (INR)</label>
+                            <input type="number" name="annual_income"
+                                   placeholder="Enter annual income"
+                                   min="0" required>
+                            <p class="hint">Your total yearly income.</p>
+                        </div>
+
+                        <div class="field">
+                            <label>Average Spending (INR)</label>
+                            <input type="number" name="avg_spending"
+                                   placeholder="Enter average spending"
+                                   min="0" required>
+                            <p class="hint">Approximate monthly spending.</p>
+                        </div>
+
+                        <div class="field">
+                            <label>Education Level</label>
+                            <select name="education_level" required>
+                                <option value="">Select education</option>
+                                <option value="1">Undergraduate</option>
+                                <option value="2">Graduate</option>
+                                <option value="3">Advanced / Professional</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>Mortgage Value (INR)</label>
+                            <input type="number" name="mortgage"
+                                   placeholder="Enter mortgage value"
+                                   min="0" required>
+                            <p class="hint">Your current mortgage amount.</p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Banking Information -->
+                <section class="section">
+                    <div class="section-title">
+                        <div class="section-icon">🏦</div>
+                        <div>
+                            <h3>Banking Information</h3>
+                            <p>Select the options applicable to you</p>
+                        </div>
+                    </div>
+
+                    <div class="radio-grid">
+
+                        <div class="radio-item">
+                            <label>Securities Account</label>
+                            <div class="radio-options">
+                                <label><input type="radio" name="securities_account" value="1" required> Yes</label>
+                                <label><input type="radio" name="securities_account" value="0"> No</label>
+                            </div>
+                        </div>
+
+                        <div class="radio-item">
+                            <label>CD Account</label>
+                            <div class="radio-options">
+                                <label><input type="radio" name="cd_account" value="1" required> Yes</label>
+                                <label><input type="radio" name="cd_account" value="0"> No</label>
+                            </div>
+                        </div>
+
+                        <div class="radio-item">
+                            <label>Online Banking</label>
+                            <div class="radio-options">
+                                <label><input type="radio" name="online_banking" value="1" required> Yes</label>
+                                <label><input type="radio" name="online_banking" value="0"> No</label>
+                            </div>
+                        </div>
+
+                        <div class="radio-item">
+                            <label>Credit Card</label>
+                            <div class="radio-options">
+                                <label><input type="radio" name="credit_card" value="1" required> Yes</label>
+                                <label><input type="radio" name="credit_card" value="0"> No</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <button type="submit" class="submit-btn">
+                    Predict Loan Eligibility &nbsp; →
+                </button>
+
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        Consumer Loan Approval Prediction System · Machine Learning Project
+    </footer>
+
+</body>
+</html>

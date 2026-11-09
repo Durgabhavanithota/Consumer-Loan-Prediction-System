@@ -1,0 +1,262 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Loan Prediction Result</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {% set result_text = prediction|string|lower %}
+    {% set is_rejected = ('reject' in result_text or 'declined' in result_text or 'not eligible' in result_text or 'not approved' in result_text) %}
+    {% set is_approved = ('approved' in result_text or 'eligible' in result_text) and not is_rejected %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f5fb;
+            min-height: 100vh;
+            color: #1e293b;
+        }
+
+        .topbar {
+            background: #101936;
+            padding: 22px 7%;
+            color: white;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            background: #7564ef;
+            padding: 9px;
+            border-radius: 10px;
+            margin-right: 9px;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 65px 18px;
+        }
+
+        .result-card {
+            width: 100%;
+            max-width: 570px;
+            background: white;
+            border-radius: 22px;
+            padding: 45px 35px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(30, 41, 80, 0.10);
+        }
+
+        .status-icon {
+            width: 85px;
+            height: 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            font-size: 42px;
+        }
+
+        .approved .status-icon {
+            background: #dcfce7;
+        }
+
+        .rejected .status-icon {
+            background: #fee2e2;
+        }
+
+        .unknown .status-icon {
+            background: #e0e7ff;
+        }
+
+        .status-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .approved .status-label {
+            color: #16a34a;
+        }
+
+        .rejected .status-label {
+            color: #dc2626;
+        }
+
+        .unknown .status-label {
+            color: #4f46e5;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #172554;
+            margin-bottom: 13px;
+        }
+
+        .description {
+            color: #758096;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .prediction-box {
+            background: #f7f8fc;
+            border: 1px solid #e8eaf3;
+            border-radius: 13px;
+            padding: 20px;
+            margin-bottom: 28px;
+        }
+
+        .prediction-box p {
+            color: #8992a7;
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .prediction-value {
+            font-size: 19px;
+            font-weight: 800;
+            color: #25304a;
+        }
+
+        .approved .prediction-value {
+            color: #16a34a;
+        }
+
+        .rejected .prediction-value {
+            color: #dc2626;
+        }
+
+        .back-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(110deg, #6958df, #4737b8);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(105, 88, 223, 0.25);
+        }
+
+        .disclaimer {
+            margin-top: 22px;
+            color: #a0a8b8;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        @media(max-width: 500px) {
+            .result-card {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <span class="brand-icon">🏦</span>
+        LoanWise
+    </header>
+
+    <main class="main">
+
+        <div class="result-card
+            {% if is_rejected %}
+                rejected
+            {% elif is_approved %}
+                approved
+            {% else %}
+                unknown
+            {% endif %}">
+
+            <div class="status-icon">
+                {% if is_rejected %}
+                    ✕
+                {% elif is_approved %}
+                    ✓
+                {% else %}
+                    📊
+                {% endif %}
+            </div>
+
+            {% if is_rejected %}
+
+                <div class="status-label">APPLICATION RESULT</div>
+                <h1>Loan Not Approved</h1>
+                <p class="description">
+                    Based on the information provided, the machine learning
+                    model predicts that the loan application is not approved.
+                </p>
+
+            {% elif is_approved %}
+
+                <div class="status-label">APPLICATION RESULT</div>
+                <h1>Congratulations!</h1>
+                <p class="description">
+                    Based on the information provided, the machine learning
+                    model predicts that the loan application is approved.
+                </p>
+
+            {% else %}
+
+                <div class="status-label">PREDICTION RESULT</div>
+                <h1>Prediction Completed</h1>
+                <p class="description">
+                    Your application has been processed. Please review
+                    the prediction generated by the model below.
+                </p>
+
+            {% endif %}
+
+            <div class="prediction-box">
+                <p>Machine Learning Prediction</p>
+                <div class="prediction-value">
+                    {{ prediction }}
+                </div>
+            </div>
+
+            <a href="/" class="back-btn">
+                ← Apply Again
+            </a>
+
+            <p class="disclaimer">
+                This result is an automated machine learning prediction
+                for educational purposes only. It is not an actual bank
+                loan approval or a financial decision.
+            </p>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
+```
