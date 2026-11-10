@@ -74,22 +74,6 @@ The application uses a probability threshold of 0.30:
 
 *Note: This threshold is configured for this academic project and does not represent an actual bank's lending policy.*
 
-## 📂 Project Structure
-
-Consumer-Loan-Prediction-System/
-│
-├── templates/
-│   ├── loan_app.html
-│   └── result.html
-│
-├── app.py
-├── loan_model.pkl
-├── scaler.pkl
-├── train_model.ipynb
-├── requirements.txt
-├── .gitignore
-└── README.md
-
 
 ## ⚙️ Installation and Setup
 
